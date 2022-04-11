@@ -18,8 +18,7 @@
 import Msg from './Msg'
 
 const KEY = 'bd0481fbe8104828af364ad26e67c9de'
-URL = 'http://localhost:8888/apiqa?name=xiaoming&pwd=111'
-const baseURL = 'http://localhost:8888/apiqa?name=xiaoming&pwd=111'
+const URL = 'http://www.tuling123.com/openapi/api'
 
 export default {
   name: 'right',
@@ -54,9 +53,6 @@ export default {
   methods: {
     send: function (msg) {
       let trimedStr = this.inputMsg.replace(/(^\s*)|(\s*$)/g, '')
-      console.log('trimedStr:'+trimedStr)
-      URL=baseURL+'&web_question='+trimedStr
-      console.log('URL:'+URL)
       if (trimedStr.length === 0) {
         return
       }
@@ -77,10 +73,9 @@ export default {
       this.$http.post(
         URL,
         {
-          //key: KEY,
+          key: KEY,
           info: trimedStr
-        },
-        {emulateJSON: true}
+        }
       ).then(
         // success
         (resp) => {
@@ -99,7 +94,6 @@ export default {
         if (!msg) {
           return
         }
-        window.console('msg111111:'+msg)
         let msgId = this.msgList.length + 1
         // add message of robot
         let m = {
