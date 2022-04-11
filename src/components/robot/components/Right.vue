@@ -29,6 +29,7 @@ export default {
   data: function () {
     return {
       inputMsg: '',
+      result: '',
       msgList: [
         {
           id: 0,
@@ -87,8 +88,12 @@ export default {
           // update message of me
           let msgToUpdate = this.getMsgById(msgId)
           msgToUpdate.status = 0
+          console.log(JSON.stringify(resp))
+          this.result = resp.data.result;
+          console.log(this.result);
+
           // get json
-          return resp.json()
+          return resp.json
         },
         // error
         (resp) => {
@@ -96,18 +101,22 @@ export default {
           msgToUpdate.status = 2
         }
       ).then((msg) => {
-        if (!msg) {
-          return
-        }
-        window.console('msg111111:'+msg)
+        // if (!msg) {
+        //   return
+        // }
         let msgId = this.msgList.length + 1
+        console.log('msgxxxxx:'+msgId)
         // add message of robot
         let m = {
           id: msgId,
           status: 0,
           who: 'robot',
-          msg: msg
+          msg:  {
+            code: 100000,
+            text: this.result
+          }
         }
+        console.log('sdfsf:' + m.msg.text)
         this.msgList.push(m)
       })
     },
